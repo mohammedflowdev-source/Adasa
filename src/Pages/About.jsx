@@ -51,8 +51,8 @@ export default function About() {
   ];
 
   return (
-    <div className="bg-[#0a0a0a] min-h-screen">
-      <section className="relative overflow-hidden pt-20 pb-20 bg-grid-pattern bg-radial-hero text-center">
+    <div className="min-h-screen">
+      <section className="relative overflow-hidden pt-20 pb-20 text-center">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="inline-flex items-center gap-2 rounded-full border border-orange-900/50 bg-orange-950/30 px-3.5 py-1 text-xs font-semibold text-orange-400 mb-6 backdrop-blur-sm">
             <span className="flex gap-1 items-center">
@@ -125,7 +125,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#1a1a1a]">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#1a1a1a]/80">
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-14">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight flex items-center justify-center gap-2">
@@ -141,7 +141,7 @@ export default function About() {
             {values.map((v, idx) => (
               <div
                 key={idx}
-                className="flex flex-col items-center justify-center p-8 rounded-2xl border border-[#222] bg-[#121212] text-center transition-all hover:border-[#333]"
+                className="flex flex-col items-center justify-center p-8 rounded-2xl border border-[#222] bg-[#121212]/80 backdrop-blur-sm text-center transition-all hover:border-[#333]"
               >
                 <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-950/20 border border-orange-900/30">
                   {v.icon}
@@ -158,7 +158,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#1a1a1a]">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#1a1a1a]/80">
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 rounded-full border border-orange-900/50 bg-orange-950/30 px-3.5 py-1 text-xs font-semibold text-orange-400 mb-4">
@@ -180,7 +180,7 @@ export default function About() {
             {authors.map((author, idx) => (
               <div
                 key={idx}
-                className="flex flex-col items-center p-8 rounded-2xl border border-[#222] bg-[#121212] text-center transition-all duration-300 hover:border-[#383838] hover:shadow-xl hover:shadow-black/50 group"
+                className="flex flex-col items-center p-8 rounded-2xl border border-[#222] bg-[#121212]/80 backdrop-blur-sm text-center transition-all duration-300 hover:border-[#383838] hover:shadow-xl hover:shadow-black/50 group"
               >
                 <div className="relative mb-5">
                   <img

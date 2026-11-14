@@ -59,7 +59,7 @@ export default function PostDetail() {
   };
 
   return (
-    <article className="bg-[#0a0a0a] min-h-screen">
+    <article className="min-h-screen">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 pt-10 pb-20">
         <button
           type="button"
@@ -93,7 +93,7 @@ export default function PostDetail() {
           {post.excerpt}
         </p>
 
-        <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl border border-[#222] bg-[#121212] mb-10">
+        <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl border border-[#222] bg-[#121212]/90 backdrop-blur-sm mb-10">
           <div className="flex items-center gap-3">
             <img
               src={post.author.avatar}
@@ -173,7 +173,7 @@ export default function PostDetail() {
       </div>
 
       {relatedPosts.length > 0 && (
-        <section className="border-t border-[#1a1a1a] py-20 px-4 sm:px-6 lg:px-8 bg-[#0d0d0d]">
+        <section className="border-t border-[#1a1a1a]/80 py-20 px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="mb-10 text-center">
               <h3 className="text-2xl sm:text-3xl font-extrabold text-white">مقالات ذات صلة</h3>

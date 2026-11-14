@@ -3,7 +3,7 @@ import { ArrowLeftIcon, InfoIcon, ArticleIcon, UsersIcon, CategoryFolderIcon, Pe
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden pt-20 pb-24 sm:pt-28 sm:pb-32 bg-grid-pattern bg-radial-hero">
+    <section className="relative overflow-hidden pt-20 pb-24 sm:pt-28 sm:pb-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <div className="inline-flex items-center gap-2 rounded-full border border-orange-900/50 bg-orange-950/30 px-4 py-1.5 text-xs font-semibold text-orange-400 mb-8 backdrop-blur-sm shadow-sm">
           <span className="flex gap-1 items-center">
@@ -37,7 +37,7 @@ export default function Hero() {
 
           <Link
             to="/about"
-            className="inline-flex items-center gap-2 rounded-full border border-[#2a2a2a] bg-[#141414] px-8 py-3.5 text-sm sm:text-base font-semibold text-[#cfcfcf] transition-all hover:border-[#404040] hover:bg-[#1f1f1f] hover:text-white"
+            className="inline-flex items-center gap-2 rounded-full border border-[#2a2a2a] bg-[#141414]/90 px-8 py-3.5 text-sm sm:text-base font-semibold text-[#cfcfcf] transition-all hover:border-[#404040] hover:bg-[#1f1f1f] hover:text-white backdrop-blur-sm"
           >
             <InfoIcon className="w-4 h-4 text-[#888]" />
             <span>اعرف المزيد</span>
