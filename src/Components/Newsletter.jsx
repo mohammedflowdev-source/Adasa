@@ -14,9 +14,9 @@ export default function Newsletter() {
   };
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0a0a0a]">
       <div className="mx-auto max-w-4xl relative overflow-hidden rounded-3xl border border-[#262626] bg-gradient-to-b from-[#161616] to-[#0f0f0f] p-8 sm:p-14 text-center shadow-2xl">
-        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-orange-600/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-orange-600/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col items-center">
           <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#ea580c] text-white shadow-lg shadow-orange-600/30">

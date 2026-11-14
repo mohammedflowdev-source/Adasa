@@ -6,7 +6,7 @@ export default function FeaturedSection() {
   const featuredPosts = data.posts.filter((p) => p.featured).slice(0, 3);
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#1a1a1a]">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#1a1a1a] bg-[#0a0a0a]">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>

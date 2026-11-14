@@ -3,7 +3,11 @@ import { ArrowLeftIcon, InfoIcon, ArticleIcon, UsersIcon, CategoryFolderIcon, Pe
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden pt-20 pb-24 sm:pt-28 sm:pb-32">
+    <section className="relative overflow-hidden pt-20 pb-28 sm:pt-28 sm:pb-36 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+      <div className="absolute top-[20%] -left-36 w-[550px] h-[550px] rounded-full ambient-glow-left blur-[100px] pointer-events-none" />
+      <div className="absolute top-[48%] -right-40 w-[600px] h-[600px] rounded-full ambient-glow-right blur-[110px] pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-overlay pointer-events-none" />
+
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <div className="inline-flex items-center gap-2 rounded-full border border-orange-900/50 bg-orange-950/30 px-4 py-1.5 text-xs font-semibold text-orange-400 mb-8 backdrop-blur-sm shadow-sm">
           <span className="flex gap-1 items-center">

@@ -64,8 +64,12 @@ export default function BlogPage() {
   ];
 
   return (
-    <div className="min-h-screen">
-      <section className="relative overflow-hidden pt-20 pb-16 text-center">
+    <div className="bg-[#0a0a0a] min-h-screen">
+      <section className="relative overflow-hidden pt-20 pb-20 text-center border-b border-[#1a1a1a]">
+        <div className="absolute top-[20%] -left-36 w-[550px] h-[550px] rounded-full ambient-glow-left blur-[100px] pointer-events-none" />
+        <div className="absolute top-[48%] -right-40 w-[600px] h-[600px] rounded-full ambient-glow-right blur-[110px] pointer-events-none" />
+        <div className="absolute inset-0 bg-grid-overlay pointer-events-none" />
+
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="inline-flex items-center gap-2 rounded-full border border-orange-900/50 bg-orange-950/30 px-3.5 py-1 text-xs font-semibold text-orange-400 mb-6 backdrop-blur-sm">
             <span className="flex gap-1 items-center">
@@ -85,7 +89,7 @@ export default function BlogPage() {
         </div>
       </section>
 
-      <section ref={listRef} className="py-10 px-4 sm:px-6 lg:px-8 scroll-mt-24">
+      <section ref={listRef} className="py-10 px-4 sm:px-6 lg:px-8 scroll-mt-24 bg-[#0a0a0a]">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 mb-8">
             <div className="flex flex-wrap items-center gap-2 order-2 lg:order-1">
@@ -99,7 +103,7 @@ export default function BlogPage() {
                     className={`rounded-xl px-4 py-2.5 text-xs sm:text-sm font-medium transition-all ${
                       isActive
                         ? "bg-[#ea580c] font-semibold text-white shadow-md shadow-orange-950/40"
-                        : "border border-[#262626] bg-[#121212]/90 text-[#959595] hover:border-[#ea580c] hover:text-white backdrop-blur-sm"
+                        : "border border-[#262626] bg-[#121212] text-[#959595] hover:border-[#ea580c] hover:text-white"
                     }`}
                   >
                     {cat.label}
@@ -114,7 +118,7 @@ export default function BlogPage() {
                 value={search}
                 onChange={(e) => handleSearchChange(e.target.value)}
                 placeholder="ابحث في المقالات..."
-                className="w-full rounded-xl border border-[#262626] bg-[#121212]/90 py-2.5 pr-10 pl-4 text-xs sm:text-sm text-white placeholder-[#666] focus:border-[#ea580c] focus:outline-none transition-colors backdrop-blur-sm"
+                className="w-full rounded-xl border border-[#262626] bg-[#121212] py-2.5 pr-10 pl-4 text-xs sm:text-sm text-white placeholder-[#666] focus:border-[#ea580c] focus:outline-none transition-colors"
               />
               <SearchIcon className="absolute top-1/2 right-3.5 h-4 w-4 -translate-y-1/2 text-[#666]" />
             </div>
@@ -125,7 +129,7 @@ export default function BlogPage() {
               عرض {filteredPosts.length} مقالات
             </p>
 
-            <div className="flex items-center gap-1 rounded-xl border border-[#262626] bg-[#121212]/90 p-1 backdrop-blur-sm">
+            <div className="flex items-center gap-1 rounded-xl border border-[#262626] bg-[#121212] p-1">
               <button
                 type="button"
                 onClick={() => setViewMode("list")}
@@ -154,7 +158,7 @@ export default function BlogPage() {
           </div>
 
           {currentPosts.length === 0 ? (
-            <div className="py-24 text-center rounded-2xl border border-dashed border-[#262626] bg-[#121212]/40 backdrop-blur-sm p-8">
+            <div className="py-24 text-center rounded-2xl border border-dashed border-[#262626] bg-[#121212]/40 p-8">
               <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#141414] text-[#666]">
                 <SearchIcon className="w-7 h-7" />
               </div>

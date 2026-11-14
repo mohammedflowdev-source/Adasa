@@ -21,7 +21,7 @@ export default function CategorySection() {
   };
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#1a1a1a]">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#1a1a1a] bg-[#0a0a0a]">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-14">
           <div className="inline-flex items-center gap-2 rounded-full border border-orange-900/50 bg-orange-950/30 px-3.5 py-1 text-xs font-semibold text-orange-400 mb-4">

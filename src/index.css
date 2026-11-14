@@ -2,18 +2,17 @@
 
 @layer base {
   body {
-    background-color: #080808;
+    background-color: #0a0a0a;
     color: #ffffff;
     font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    min-height: 100vh;
   }
 }
 
 .bg-grid-overlay {
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
-  background-size: 56px 56px;
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
 }
 
 .ambient-glow-left {
@@ -22,8 +21,4 @@
 
 .ambient-glow-right {
   background: radial-gradient(circle, rgba(217, 119, 6, 0.18) 0%, rgba(194, 65, 12, 0.08) 45%, transparent 70%);
-}
-
-.ambient-glow-center {
-  background: radial-gradient(ellipse at 50% 20%, rgba(234, 88, 12, 0.12) 0%, transparent 60%);
 }

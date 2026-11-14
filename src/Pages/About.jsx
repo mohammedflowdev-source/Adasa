@@ -51,8 +51,12 @@ export default function About() {
   ];
 
   return (
-    <div className="min-h-screen">
-      <section className="relative overflow-hidden pt-20 pb-20 text-center">
+    <div className="bg-[#0a0a0a] min-h-screen">
+      <section className="relative overflow-hidden pt-20 pb-24 text-center border-b border-[#1a1a1a]">
+        <div className="absolute top-[20%] -left-36 w-[550px] h-[550px] rounded-full ambient-glow-left blur-[100px] pointer-events-none" />
+        <div className="absolute top-[48%] -right-40 w-[600px] h-[600px] rounded-full ambient-glow-right blur-[110px] pointer-events-none" />
+        <div className="absolute inset-0 bg-grid-overlay pointer-events-none" />
+
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="inline-flex items-center gap-2 rounded-full border border-orange-900/50 bg-orange-950/30 px-3.5 py-1 text-xs font-semibold text-orange-400 mb-6 backdrop-blur-sm">
             <span className="flex gap-1 items-center">
@@ -125,7 +129,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#1a1a1a]/80">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#1a1a1a] bg-[#0a0a0a]">
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-14">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight flex items-center justify-center gap-2">
@@ -141,7 +145,7 @@ export default function About() {
             {values.map((v, idx) => (
               <div
                 key={idx}
-                className="flex flex-col items-center justify-center p-8 rounded-2xl border border-[#222] bg-[#121212]/80 backdrop-blur-sm text-center transition-all hover:border-[#333]"
+                className="flex flex-col items-center justify-center p-8 rounded-2xl border border-[#222] bg-[#121212] text-center transition-all hover:border-[#333]"
               >
                 <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-950/20 border border-orange-900/30">
                   {v.icon}
@@ -158,7 +162,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#1a1a1a]/80">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-[#1a1a1a] bg-[#0a0a0a]">
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-14">
             <div className="inline-flex items-center gap-2 rounded-full border border-orange-900/50 bg-orange-950/30 px-3.5 py-1 text-xs font-semibold text-orange-400 mb-4">
@@ -180,7 +184,7 @@ export default function About() {
             {authors.map((author, idx) => (
               <div
                 key={idx}
-                className="flex flex-col items-center p-8 rounded-2xl border border-[#222] bg-[#121212]/80 backdrop-blur-sm text-center transition-all duration-300 hover:border-[#383838] hover:shadow-xl hover:shadow-black/50 group"
+                className="flex flex-col items-center p-8 rounded-2xl border border-[#222] bg-[#121212] text-center transition-all duration-300 hover:border-[#383838] hover:shadow-xl hover:shadow-black/50 group"
               >
                 <div className="relative mb-5">
                   <img
@@ -229,7 +233,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0a0a0a]">
         <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl bg-gradient-to-r from-[#ea580c] via-[#f97316] to-[#f59e0b] p-10 sm:p-16 text-center text-white shadow-2xl shadow-orange-950/40">
           <h2 className="text-3xl sm:text-5xl font-black tracking-tight">
             لديك أسئلة؟ دعنا نتحدث!
