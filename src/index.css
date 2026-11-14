@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #0a0a0a;
+    color: #ffffff;
+    font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+}
+
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.bg-radial-hero {
+  background: radial-gradient(circle at 50% 15%, rgba(234, 88, 12, 0.15) 0%, rgba(10, 10, 10, 0) 70%);
+}
+
+.bg-radial-glow {
+  background: radial-gradient(circle at center, rgba(234, 88, 12, 0.1) 0%, rgba(10, 10, 10, 0) 65%);
+}
