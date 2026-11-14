@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { MailIcon } from "./Icons";
+import { useLanguage } from "../context/useLanguage";
 
 export default function Newsletter() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("idle");
+  const { t, isRTL } = useLanguage();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,11 +26,11 @@ export default function Newsletter() {
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            اشترك في نشرتنا الإخبارية
+            {t("newsletterTitle")}
           </h2>
 
           <p className="mt-3 max-w-xl text-sm sm:text-base text-[#9e9e9e] leading-relaxed">
-            احصل على نصائح التصوير الحصرية ودروس جديدة مباشرة في بريدك الإلكتروني
+            {t("newsletterSubtitle")}
           </p>
 
           <form onSubmit={handleSubmit} className="mt-8 flex w-full max-w-lg flex-col sm:flex-row gap-3">
@@ -36,21 +38,23 @@ export default function Newsletter() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="ادخل بريدك الإلكتروني"
-              className="flex-1 rounded-xl border border-[#2e2e2e] bg-[#1a1a1a] px-5 py-3.5 text-sm text-white placeholder-[#666] focus:border-[#ea580c] focus:outline-none focus:ring-1 focus:ring-[#ea580c] transition-all text-right"
+              placeholder={t("newsletterPlaceholder")}
+              className={`flex-1 rounded-xl border border-[#2e2e2e] bg-[#1a1a1a] px-5 py-3.5 text-sm text-white placeholder-[#666] focus:border-[#ea580c] focus:outline-none focus:ring-1 focus:ring-[#ea580c] transition-all ${
+                isRTL ? "text-right" : "text-left"
+              }`}
               required
             />
             <button
               type="submit"
               className="rounded-xl bg-[#ea580c] px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-[#c2410c] hover:shadow-lg hover:shadow-orange-950/50 active:scale-95 whitespace-nowrap"
             >
-              اشترك الآن
+              {t("newsletterButton")}
             </button>
           </form>
 
           {status === "success" && (
             <p className="mt-3 text-xs font-medium text-emerald-400">
-              شكراً لاشتراكك! ستصلك أولى رسائلنا قريباً.
+              {t("newsletterSuccess")}
             </p>
           )}
 
@@ -72,11 +76,11 @@ export default function Newsletter() {
                 alt="Member"
               />
             </div>
-            <span>انضم لـ <strong className="text-white font-semibold">+10,000</strong> مصور</span>
+            <span>{t("newsletterJoin")} <strong className="text-white font-semibold">+10,000</strong> {t("newsletterPhotographers")}</span>
             <span>•</span>
-            <span>بدون إزعاج</span>
+            <span>{t("newsletterNoSpam")}</span>
             <span>•</span>
-            <span>إلغاء الاشتراك في أي وقت</span>
+            <span>{t("newsletterUnsubscribe")}</span>
           </div>
         </div>
       </div>

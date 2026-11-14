@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { LogoIcon, SearchIcon, CloseIcon } from "./Icons";
+import { LogoIcon, SearchIcon, CloseIcon, GlobeIcon } from "./Icons";
+import { useLanguage } from "../context/useLanguage";
 
 export default function Navbar({ onOpenSearch }) {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { language, toggleLanguage, t } = useLanguage();
 
   const isActive = (path) => {
     if (path === "/" && location.pathname === "/") return true;
@@ -20,12 +22,12 @@ export default function Navbar({ onOpenSearch }) {
             <div className="transition-transform group-hover:scale-105">
               <LogoIcon className="w-10 h-10" />
             </div>
-            <div className="text-right">
+            <div>
               <div className="text-xl font-bold tracking-tight text-white group-hover:text-orange-400 transition-colors">
-                عدسة
+                {t("siteName")}
               </div>
               <div className="text-xs font-medium text-orange-500">
-                عالم التصوير الفوتوغرافي
+                {t("siteTagline")}
               </div>
             </div>
           </Link>
@@ -39,7 +41,7 @@ export default function Navbar({ onOpenSearch }) {
                   : "text-[#959595] hover:text-white"
               }`}
             >
-              الرئيسية
+              {t("home")}
             </Link>
             <Link
               to="/blog"
@@ -49,7 +51,7 @@ export default function Navbar({ onOpenSearch }) {
                   : "text-[#959595] hover:text-white"
               }`}
             >
-              المدونة
+              {t("blog")}
             </Link>
             <Link
               to="/about"
@@ -59,16 +61,26 @@ export default function Navbar({ onOpenSearch }) {
                   : "text-[#959595] hover:text-white"
               }`}
             >
-              من نحن
+              {t("about")}
             </Link>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button
+              type="button"
+              onClick={toggleLanguage}
+              className="flex items-center gap-1.5 rounded-full border border-[#2e2e2e] bg-[#141414] px-3 py-1.5 text-xs font-bold text-white transition-all hover:border-[#ea580c] hover:bg-[#1f1f1f]"
+              aria-label="Toggle language"
+            >
+              <GlobeIcon className="w-3.5 h-3.5 text-orange-500" />
+              <span>{language === "ar" ? "EN" : "عربي"}</span>
+            </button>
+
             <button
               type="button"
               onClick={onOpenSearch}
               className="flex h-10 w-10 items-center justify-center rounded-full text-[#959595] hover:bg-[#1f1f1f] hover:text-white transition-colors"
-              aria-label="بحث"
+              aria-label={t("search")}
             >
               <SearchIcon className="w-5 h-5" />
             </button>
@@ -77,7 +89,7 @@ export default function Navbar({ onOpenSearch }) {
               to="/blog"
               className="hidden sm:inline-flex items-center justify-center rounded-full bg-[#ea580c] px-6 py-2.5 text-sm font-semibold text-white transition-all hover:bg-[#c2410c] hover:shadow-lg hover:shadow-orange-900/30 active:scale-95"
             >
-              ابدأ القراءة
+              {t("startReading")}
             </Link>
 
             <button
@@ -104,7 +116,7 @@ export default function Navbar({ onOpenSearch }) {
                 isActive("/") ? "bg-[#ea580c] text-white font-semibold" : "text-[#959595] hover:text-white"
               }`}
             >
-              الرئيسية
+              {t("home")}
             </Link>
             <Link
               to="/blog"
@@ -113,7 +125,7 @@ export default function Navbar({ onOpenSearch }) {
                 isActive("/blog") ? "bg-[#ea580c] text-white font-semibold" : "text-[#959595] hover:text-white"
               }`}
             >
-              المدونة
+              {t("blog")}
             </Link>
             <Link
               to="/about"
@@ -122,15 +134,26 @@ export default function Navbar({ onOpenSearch }) {
                 isActive("/about") ? "bg-[#ea580c] text-white font-semibold" : "text-[#959595] hover:text-white"
               }`}
             >
-              من نحن
+              {t("about")}
             </Link>
-            <div className="pt-2">
+            <div className="pt-2 flex flex-col gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  toggleLanguage();
+                  setMobileMenuOpen(false);
+                }}
+                className="flex items-center justify-center gap-2 rounded-xl border border-[#2e2e2e] bg-[#141414] py-2 text-xs font-semibold text-white"
+              >
+                <GlobeIcon className="w-4 h-4 text-orange-500" />
+                <span>{language === "ar" ? "English" : "العربية"}</span>
+              </button>
               <Link
                 to="/blog"
                 onClick={() => setMobileMenuOpen(false)}
                 className="block text-center rounded-full bg-[#ea580c] px-4 py-2.5 text-sm font-semibold text-white"
               >
-                ابدأ القراءة
+                {t("startReading")}
               </Link>
             </div>
           </div>

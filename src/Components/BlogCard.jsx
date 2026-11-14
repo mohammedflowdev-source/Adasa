@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
-import { ClockIcon, ArrowLeftIcon } from "./Icons";
+import { ClockIcon, ArrowLeftIcon, ArrowRightIcon } from "./Icons";
+import { useLanguage } from "../context/useLanguage";
 
-export default function BlogCard({ post }) {
+export default function BlogCard({ post: rawPost }) {
+  const { localizePost, isRTL } = useLanguage();
+  const post = localizePost(rawPost);
+
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[#222222] bg-[#121212] transition-all duration-300 hover:border-[#383838] hover:shadow-xl hover:shadow-black/50">
       <Link to={`/blog/${post.slug}`} className="relative block aspect-[16/10] overflow-hidden bg-[#1a1a1a]">
@@ -55,9 +59,9 @@ export default function BlogCard({ post }) {
           <Link
             to={`/blog/${post.slug}`}
             className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1c1c1c] text-[#ea580c] transition-all duration-200 hover:bg-[#ea580c] hover:text-white"
-            aria-label="اقرأ المقال"
+            aria-label="Read article"
           >
-            <ArrowLeftIcon className="w-4 h-4" />
+            {isRTL ? <ArrowLeftIcon className="w-4 h-4" /> : <ArrowRightIcon className="w-4 h-4" />}
           </Link>
         </div>
       </div>

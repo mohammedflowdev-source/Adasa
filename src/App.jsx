@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
+import { LanguageProvider } from "./context/LanguageContext";
 import Layout from "./Components/Layout";
 import Home from "./Pages/Home";
 import BlogPage from "./Pages/BlogPage";
@@ -35,5 +36,9 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <LanguageProvider>
+      <RouterProvider router={router} />
+    </LanguageProvider>
+  );
 }

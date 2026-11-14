@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { SunIcon, UserCircleIcon, LandscapeIcon, SlidersIcon, CameraIcon } from "./Icons";
+import { useLanguage } from "../context/useLanguage";
 import data from "../data.json";
 
 export default function CategorySection() {
+  const { t, localizeCategory } = useLanguage();
+
   const getIcon = (name) => {
     switch (name) {
       case "إضاءة":
@@ -29,13 +32,13 @@ export default function CategorySection() {
               <span className="h-1.5 w-1.5 rounded-full bg-orange-500"></span>
               <span className="h-1.5 w-1.5 rounded-full bg-orange-500"></span>
             </span>
-            <span>التصنيفات</span>
+            <span>{t("categoriesBadge")}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            استكشف حسب الموضوع
+            {t("categoriesTitle")}
           </h2>
           <p className="mt-2 text-sm text-[#888]">
-            اعثر على محتوى مصمم حسب اهتماماتك
+            {t("categoriesSubtitle")}
           </p>
         </div>
 
@@ -50,10 +53,10 @@ export default function CategorySection() {
                 {getIcon(cat.name)}
               </div>
               <h3 className="text-base font-bold text-white transition-colors group-hover:text-orange-400">
-                {cat.name}
+                {localizeCategory(cat.name)}
               </h3>
               <p className="mt-1 text-xs text-[#737373]">
-                {cat.count} مقالة
+                {cat.count} {t("articleCountSuffix")}
               </p>
             </Link>
           ))}

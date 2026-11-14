@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { SearchIcon, CloseIcon, ClockIcon } from "./Icons";
+import { useLanguage } from "../context/useLanguage";
 import data from "../data.json";
 
 export default function SearchModal({ isOpen, onClose }) {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
+  const { t, localizePost } = useLanguage();
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -24,13 +26,16 @@ export default function SearchModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   const results = query.trim()
-    ? data.posts.filter((p) =>
-        p.title.toLowerCase().includes(query.toLowerCase()) ||
-        p.excerpt.toLowerCase().includes(query.toLowerCase()) ||
-        p.category.toLowerCase().includes(query.toLowerCase()) ||
-        p.author.name.toLowerCase().includes(query.toLowerCase())
-      )
-    : data.posts.slice(0, 5);
+    ? data.posts
+        .map((p) => localizePost(p))
+        .filter(
+          (p) =>
+            p.title.toLowerCase().includes(query.toLowerCase()) ||
+            p.excerpt.toLowerCase().includes(query.toLowerCase()) ||
+            p.category.toLowerCase().includes(query.toLowerCase()) ||
+            p.author.name.toLowerCase().includes(query.toLowerCase())
+        )
+    : data.posts.slice(0, 5).map((p) => localizePost(p));
 
   const handleSelect = (slug) => {
     onClose();
@@ -46,12 +51,12 @@ export default function SearchModal({ isOpen, onClose }) {
 
       <div className="relative w-full max-w-2xl overflow-hidden rounded-2xl border border-[#262626] bg-[#121212] shadow-2xl">
         <div className="flex items-center border-b border-[#262626] px-4 py-3">
-          <SearchIcon className="w-5 h-5 text-orange-500 ml-3" />
+          <SearchIcon className="w-5 h-5 text-orange-500 mx-2" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="ابحث في جميع المقالات، التصنيفات، الكتاب..."
+            placeholder={t("searchModalPlaceholder")}
             className="flex-1 bg-transparent text-sm text-white placeholder-[#666] outline-none"
             autoFocus
           />
@@ -61,7 +66,7 @@ export default function SearchModal({ isOpen, onClose }) {
               onClick={() => setQuery("")}
               className="text-xs text-[#666] hover:text-white px-2"
             >
-              مسح
+              {t("searchModalClear")}
             </button>
           )}
           <button
@@ -75,12 +80,12 @@ export default function SearchModal({ isOpen, onClose }) {
 
         <div className="max-h-96 overflow-y-auto p-3 divide-y divide-[#1f1f1f]">
           <div className="px-3 py-2 text-xs font-semibold text-[#666]">
-            {query.trim() ? `نتائج البحث (${results.length})` : "مقالات مقترحة"}
+            {query.trim() ? t("searchResultsLabel", results.length) : t("suggestedArticlesLabel")}
           </div>
 
           {results.length === 0 ? (
             <div className="py-12 text-center text-sm text-[#777]">
-              لا توجد مقالات مطابقة لـ "{query}"
+              {t("noSearchMatch", query)}
             </div>
           ) : (
             results.map((post) => (
@@ -103,14 +108,14 @@ export default function SearchModal({ isOpen, onClose }) {
                       <span className="text-orange-500 font-medium">{post.category}</span>
                       <span>•</span>
                       <span className="flex items-center gap-1">
-                        <ClockIcon className="w-3 h-3" />
+                        <ClockIcon className="w-3.5 h-3.5" />
                         {post.readTime}
                       </span>
                     </div>
                   </div>
                 </div>
-                <span className="text-xs text-[#666] group-hover:text-orange-400">
-                  اقرأ ←
+                <span className="text-xs text-[#666] group-hover:text-orange-400 shrink-0">
+                  {t("readMoreLink")}
                 </span>
               </div>
             ))

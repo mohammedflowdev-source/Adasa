@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import BlogCard from "./BlogCard";
-import { ArrowLeftIcon } from "./Icons";
+import { ArrowLeftIcon, ArrowRightIcon } from "./Icons";
+import { useLanguage } from "../context/useLanguage";
 import data from "../data.json";
 
 export default function LatestSection() {
+  const { t, isRTL } = useLanguage();
   const latestPosts = data.posts.slice(3, 6);
 
   return (
@@ -16,13 +18,13 @@ export default function LatestSection() {
                 <span className="h-1.5 w-1.5 rounded-full bg-orange-500"></span>
                 <span className="h-1.5 w-1.5 rounded-full bg-orange-500"></span>
               </span>
-              <span>الأحدث</span>
+              <span>{t("latestBadge")}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              أحدث المقالات
+              {t("latestTitle")}
             </h2>
             <p className="mt-2 text-sm text-[#888]">
-              محتوى جديد طازج من المطبعة
+              {t("latestSubtitle")}
             </p>
           </div>
 
@@ -30,8 +32,8 @@ export default function LatestSection() {
             to="/blog"
             className="inline-flex items-center gap-2 text-sm font-semibold text-orange-500 hover:text-orange-400 transition-colors self-start sm:self-auto"
           >
-            <span>عرض جميع المقالات</span>
-            <ArrowLeftIcon className="w-4 h-4" />
+            <span>{t("viewAllArticles")}</span>
+            {isRTL ? <ArrowLeftIcon className="w-4 h-4" /> : <ArrowRightIcon className="w-4 h-4" />}
           </Link>
         </div>
 

@@ -1,6 +1,9 @@
 import { ArrowLeftIcon, ArrowRightIcon } from "./Icons";
+import { useLanguage } from "../context/useLanguage";
 
 export default function Pagination({ pages, currentPage, setCurrentPage, onPageChange }) {
+  const { t, isRTL } = useLanguage();
+
   if (pages <= 1) return null;
 
   const handlePage = (page) => {
@@ -38,9 +41,9 @@ export default function Pagination({ pages, currentPage, setCurrentPage, onPageC
           onClick={() => handlePage(currentPage - 1)}
           disabled={currentPage === 1}
           className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#262626] bg-[#141414] text-[#808080] transition-colors hover:border-[#383838] hover:text-white disabled:opacity-30 disabled:pointer-events-none"
-          aria-label="الصفحة السابقة"
+          aria-label="Previous page"
         >
-          <ArrowRightIcon className="w-4 h-4" />
+          {isRTL ? <ArrowRightIcon className="w-4 h-4" /> : <ArrowLeftIcon className="w-4 h-4" />}
         </button>
 
         {visiblePages.map((page, idx) => {
@@ -73,14 +76,14 @@ export default function Pagination({ pages, currentPage, setCurrentPage, onPageC
           onClick={() => handlePage(currentPage + 1)}
           disabled={currentPage === pages}
           className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#262626] bg-[#141414] text-[#808080] transition-colors hover:border-[#383838] hover:text-white disabled:opacity-30 disabled:pointer-events-none"
-          aria-label="الصفحة التالية"
+          aria-label="Next page"
         >
-          <ArrowLeftIcon className="w-4 h-4" />
+          {isRTL ? <ArrowLeftIcon className="w-4 h-4" /> : <ArrowRightIcon className="w-4 h-4" />}
         </button>
       </div>
 
       <p className="text-xs text-[#737373]">
-        صفحة {currentPage} من {pages}
+        {t("pageOf", currentPage, pages)}
       </p>
     </div>
   );

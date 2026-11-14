@@ -5,11 +5,13 @@ import ListBlogCard from "../Components/ListBlogCard";
 import Pagination from "../Components/Pagination";
 import Newsletter from "../Components/Newsletter";
 import { SearchIcon, GridIcon, ListIcon } from "../Components/Icons";
+import { useLanguage } from "../context/useLanguage";
 import data from "../data.json";
 
 export default function BlogPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const category = searchParams.get("category") || "all";
+  const { t, localizeCategory, localizePost } = useLanguage();
 
   const [search, setSearch] = useState("");
   const [viewMode, setViewMode] = useState("grid");
@@ -33,14 +35,26 @@ export default function BlogPage() {
     setCurrentPage(1);
   };
 
-  const filteredPosts = data.posts.filter((post) => {
-    const matchesSearch =
-      post.title.toLowerCase().includes(search.toLowerCase()) ||
-      post.excerpt.toLowerCase().includes(search.toLowerCase()) ||
-      post.tags.some((t) => t.toLowerCase().includes(search.toLowerCase())) ||
-      post.author.name.toLowerCase().includes(search.toLowerCase());
+  const localizedAllPosts = data.posts.map((p) => ({
+    original: p,
+    localized: localizePost(p),
+  }));
 
-    const matchesCategory = category === "all" || post.category === category;
+  const filteredPosts = localizedAllPosts.filter(({ original, localized }) => {
+    const matchesSearch =
+      localized.title.toLowerCase().includes(search.toLowerCase()) ||
+      localized.excerpt.toLowerCase().includes(search.toLowerCase()) ||
+      localized.tags.some((t) => t.toLowerCase().includes(search.toLowerCase())) ||
+      localized.author.name.toLowerCase().includes(search.toLowerCase()) ||
+      original.title.toLowerCase().includes(search.toLowerCase()) ||
+      original.excerpt.toLowerCase().includes(search.toLowerCase()) ||
+      original.author.name.toLowerCase().includes(search.toLowerCase());
+
+    const matchesCategory =
+      category === "all" ||
+      original.category === category ||
+      localizeCategory(original.category) === category;
+
     return matchesSearch && matchesCategory;
   });
 
@@ -55,12 +69,12 @@ export default function BlogPage() {
   };
 
   const categories = [
-    { id: "all", label: "جميع المقالات" },
-    { id: "إضاءة", label: "إضاءة" },
-    { id: "بورتريه", label: "بورتريه" },
-    { id: "مناظر طبيعية", label: "مناظر طبيعية" },
-    { id: "تقنيات", label: "تقنيات" },
-    { id: "معدات", label: "معدات" },
+    { id: "all", label: t("allArticles") },
+    { id: "إضاءة", label: localizeCategory("إضاءة") },
+    { id: "بورتريه", label: localizeCategory("بورتريه") },
+    { id: "مناظر طبيعية", label: localizeCategory("مناظر طبيعية") },
+    { id: "تقنيات", label: localizeCategory("تقنيات") },
+    { id: "معدات", label: localizeCategory("معدات") },
   ];
 
   return (
@@ -76,15 +90,15 @@ export default function BlogPage() {
               <span className="h-1.5 w-1.5 rounded-full bg-orange-500"></span>
               <span className="h-1.5 w-1.5 rounded-full bg-orange-500"></span>
             </span>
-            <span>مدونتنا</span>
+            <span>{t("blogBadge")}</span>
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
-            استكشف مقالاتنا
+            {t("blogTitle")}
           </h1>
 
           <p className="mt-4 text-base sm:text-lg text-[#a1a1a1] max-w-2xl mx-auto">
-            اكتشف الدروس والرؤى وأفضل الممارسات للتطوير الحديث
+            {t("blogSubtitle")}
           </p>
         </div>
       </section>
@@ -117,8 +131,8 @@ export default function BlogPage() {
                 type="search"
                 value={search}
                 onChange={(e) => handleSearchChange(e.target.value)}
-                placeholder="ابحث في المقالات..."
-                className="w-full rounded-xl border border-[#262626] bg-[#121212] py-2.5 pr-10 pl-4 text-xs sm:text-sm text-white placeholder-[#666] focus:border-[#ea580c] focus:outline-none transition-colors"
+                placeholder={t("searchArticlesPlaceholder")}
+                className="w-full rounded-xl border border-[#262626] bg-[#121212] py-2.5 px-10 text-xs sm:text-sm text-white placeholder-[#666] focus:border-[#ea580c] focus:outline-none transition-colors"
               />
               <SearchIcon className="absolute top-1/2 right-3.5 h-4 w-4 -translate-y-1/2 text-[#666]" />
             </div>
@@ -126,7 +140,7 @@ export default function BlogPage() {
 
           <div className="flex items-center justify-between border-t border-[#1f1f1f] pt-6 mb-8">
             <p className="text-xs sm:text-sm text-[#808080]">
-              عرض {filteredPosts.length} مقالات
+              {t("showingCount")} {filteredPosts.length} {t("articlesWord")}
             </p>
 
             <div className="flex items-center gap-1 rounded-xl border border-[#262626] bg-[#121212] p-1">
@@ -138,7 +152,7 @@ export default function BlogPage() {
                     ? "bg-[#ea580c] text-white"
                     : "text-[#808080] hover:text-white"
                 }`}
-                aria-label="عرض قائمة"
+                aria-label="List view"
               >
                 <ListIcon className="h-4 w-4" />
               </button>
@@ -150,7 +164,7 @@ export default function BlogPage() {
                     ? "bg-[#ea580c] text-white"
                     : "text-[#808080] hover:text-white"
                 }`}
-                aria-label="عرض شبكة"
+                aria-label="Grid view"
               >
                 <GridIcon className="h-4 w-4" />
               </button>
@@ -162,9 +176,9 @@ export default function BlogPage() {
               <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#141414] text-[#666]">
                 <SearchIcon className="w-7 h-7" />
               </div>
-              <h3 className="text-lg font-bold text-white">لا توجد مقالات مطابقة</h3>
+              <h3 className="text-lg font-bold text-white">{t("noResultsTitle")}</h3>
               <p className="mt-2 text-xs sm:text-sm text-[#777]">
-                جرّب البحث بكلمات أخرى أو اختر تصنيفاً مختلفاً.
+                {t("noResultsDesc")}
               </p>
               <button
                 type="button"
@@ -174,19 +188,19 @@ export default function BlogPage() {
                 }}
                 className="mt-6 rounded-xl bg-[#ea580c] px-6 py-2.5 text-xs font-semibold text-white hover:bg-[#c2410c]"
               >
-                إعادة ضبط التصفية
+                {t("resetFilters")}
               </button>
             </div>
           ) : viewMode === "grid" ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {currentPosts.map((post) => (
-                <BlogCard key={post.id} post={post} />
+              {currentPosts.map(({ original }) => (
+                <BlogCard key={original.id} post={original} />
               ))}
             </div>
           ) : (
             <div className="space-y-4">
-              {currentPosts.map((post) => (
-                <ListBlogCard key={post.id} post={post} />
+              {currentPosts.map(({ original }) => (
+                <ListBlogCard key={original.id} post={original} />
               ))}
             </div>
           )}

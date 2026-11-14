@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import FeaturedCard from "./FeaturedCard";
+import { useLanguage } from "../context/useLanguage";
 import data from "../data.json";
 
 export default function FeaturedSection() {
+  const { t } = useLanguage();
   const featuredPosts = data.posts.filter((p) => p.featured).slice(0, 3);
 
   return (
@@ -15,13 +17,13 @@ export default function FeaturedSection() {
                 <span className="h-1.5 w-1.5 rounded-full bg-orange-500"></span>
                 <span className="h-1.5 w-1.5 rounded-full bg-orange-500"></span>
               </span>
-              <span>مميز</span>
+              <span>{t("featuredBadge")}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              مقالات مختارة
+              {t("featuredTitle")}
             </h2>
             <p className="mt-2 text-sm text-[#888]">
-              محتوى منتقى لبدء رحلة تعلمك
+              {t("featuredSubtitle")}
             </p>
           </div>
 
@@ -29,7 +31,7 @@ export default function FeaturedSection() {
             to="/blog"
             className="inline-flex items-center justify-center rounded-xl bg-[#ea580c] px-5 py-2.5 text-xs sm:text-sm font-semibold text-white transition-all hover:bg-[#c2410c] hover:shadow-lg hover:shadow-orange-950/40 self-start sm:self-auto"
           >
-            عرض الكل &gt;
+            {t("viewAll")}
           </Link>
         </div>
 

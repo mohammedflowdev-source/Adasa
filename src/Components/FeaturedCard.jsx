@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
-import { ClockIcon, ArrowLeftIcon } from "./Icons";
+import { ClockIcon, ArrowLeftIcon, ArrowRightIcon } from "./Icons";
+import { useLanguage } from "../context/useLanguage";
 
-export default function FeaturedCard({ post }) {
+export default function FeaturedCard({ post: rawPost }) {
+  const { localizePost, isRTL, t } = useLanguage();
+  const post = localizePost(rawPost);
+
   return (
     <article className="group relative overflow-hidden rounded-3xl border border-[#262626] bg-[#121212] transition-all duration-300 hover:border-[#383838] hover:shadow-2xl hover:shadow-orange-950/10">
       <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
@@ -49,8 +53,12 @@ export default function FeaturedCard({ post }) {
               to={`/blog/${post.slug}`}
               className="inline-flex items-center gap-2 text-sm font-semibold text-white transition-colors group-hover:text-orange-400"
             >
-              <span>اقرأ المقال</span>
-              <ArrowLeftIcon className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+              <span>{t("readArticle")}</span>
+              {isRTL ? (
+                <ArrowLeftIcon className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+              ) : (
+                <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              )}
             </Link>
           </div>
         </div>
@@ -67,7 +75,7 @@ export default function FeaturedCard({ post }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent lg:bg-gradient-to-r lg:from-[#121212]/30 lg:to-transparent" />
           <div className="absolute top-4 right-4 rounded-full bg-orange-600/90 backdrop-blur-md px-3.5 py-1 text-xs font-bold text-white shadow-lg flex items-center gap-1.5">
             <span>★</span>
-            <span>مميز</span>
+            <span>{t("featuredBadge")}</span>
           </div>
         </Link>
       </div>

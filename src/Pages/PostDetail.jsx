@@ -1,34 +1,38 @@
 import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { ClockIcon, ArrowRightIcon, XTwitterIcon, LinkedinIcon, CheckCircleIcon } from "../Components/Icons";
+import { ClockIcon, ArrowRightIcon, ArrowLeftIcon, XTwitterIcon, LinkedinIcon, CheckCircleIcon } from "../Components/Icons";
 import BlogCard from "../Components/BlogCard";
 import Newsletter from "../Components/Newsletter";
+import { useLanguage } from "../context/useLanguage";
 import data from "../data.json";
 
 export default function PostDetail() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const [copied, setCopied] = useState(false);
+  const { t, localizePost, isRTL } = useLanguage();
 
-  const post = data.posts.find((p) => p.slug === slug) || data.posts.find((p) => String(p.id) === slug);
+  const rawPost = data.posts.find((p) => p.slug === slug) || data.posts.find((p) => String(p.id) === slug);
 
-  if (!post) {
+  if (!rawPost) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center px-4 text-center">
-        <h2 className="text-3xl font-extrabold text-white">المقال غير موجود</h2>
-        <p className="mt-2 text-sm text-[#888]">عذراً، لم نتمكن من العثور على المقال المطلوب.</p>
+        <h2 className="text-3xl font-extrabold text-white">{t("postNotFoundTitle")}</h2>
+        <p className="mt-2 text-sm text-[#888]">{t("postNotFoundDesc")}</p>
         <Link
           to="/blog"
           className="mt-6 rounded-xl bg-[#ea580c] px-6 py-2.5 text-sm font-semibold text-white hover:bg-[#c2410c]"
         >
-          العودة إلى المقالات
+          {t("backToArticles")}
         </Link>
       </div>
     );
   }
 
+  const post = localizePost(rawPost);
+
   const relatedPosts = data.posts
-    .filter((p) => p.id !== post.id && p.category === post.category)
+    .filter((p) => p.id !== rawPost.id && p.category === rawPost.category)
     .slice(0, 3);
 
   const handleCopyLink = () => {
@@ -66,13 +70,13 @@ export default function PostDetail() {
           onClick={() => navigate(-1)}
           className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-orange-500 hover:text-orange-400 transition-colors mb-8"
         >
-          <ArrowRightIcon className="w-4 h-4" />
-          <span>العودة إلى المقالات</span>
+          {isRTL ? <ArrowRightIcon className="w-4 h-4" /> : <ArrowLeftIcon className="w-4 h-4" />}
+          <span>{t("backToArticles")}</span>
         </button>
 
         <div className="flex flex-wrap items-center gap-3 text-xs text-[#888] mb-6">
           <Link
-            to={`/blog?category=${encodeURIComponent(post.category)}`}
+            to={`/blog?category=${encodeURIComponent(rawPost.category)}`}
             className="rounded-full border border-orange-900/50 bg-orange-950/30 px-3.5 py-1 font-semibold text-orange-400 hover:bg-orange-950/60 transition-colors"
           >
             {post.category}
@@ -89,7 +93,7 @@ export default function PostDetail() {
           {post.title}
         </h1>
 
-        <p className="text-lg sm:text-xl text-[#9e9e9e] leading-relaxed mb-8 border-r-4 border-[#ea580c] pr-4">
+        <p className={`text-lg sm:text-xl text-[#9e9e9e] leading-relaxed mb-8 ${isRTL ? "border-r-4 pr-4" : "border-l-4 pl-4"} border-[#ea580c]`}>
           {post.excerpt}
         </p>
 
@@ -112,7 +116,7 @@ export default function PostDetail() {
               target="_blank"
               rel="noreferrer"
               className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#262626] bg-[#161616] text-[#888] hover:bg-[#ea580c] hover:border-[#ea580c] hover:text-white transition-all"
-              aria-label="شارك على X"
+              aria-label="Share on X"
             >
               <XTwitterIcon className="w-4 h-4" />
             </a>
@@ -121,7 +125,7 @@ export default function PostDetail() {
               target="_blank"
               rel="noreferrer"
               className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#262626] bg-[#161616] text-[#888] hover:bg-[#ea580c] hover:border-[#ea580c] hover:text-white transition-all"
-              aria-label="شارك على LinkedIn"
+              aria-label="Share on LinkedIn"
             >
               <LinkedinIcon className="w-4 h-4" />
             </a>
@@ -133,10 +137,10 @@ export default function PostDetail() {
               {copied ? (
                 <>
                   <CheckCircleIcon className="w-4 h-4 text-emerald-400" />
-                  <span className="text-emerald-400">تم النسخ!</span>
+                  <span className="text-emerald-400">{t("copied")}</span>
                 </>
               ) : (
-                <span>نسخ الرابط</span>
+                <span>{t("copyLink")}</span>
               )}
             </button>
           </div>
@@ -156,12 +160,12 @@ export default function PostDetail() {
 
         {post.tags && post.tags.length > 0 && (
           <div className="mt-12 pt-6 border-t border-[#1f1f1f]">
-            <h4 className="text-xs font-semibold text-[#888] mb-3">الوسوم:</h4>
+            <h4 className="text-xs font-semibold text-[#888] mb-3">{t("tagsLabel")}</h4>
             <div className="flex flex-wrap gap-2">
               {post.tags.map((tag) => (
                 <Link
                   key={tag}
-                  to={`/blog?category=${encodeURIComponent(post.category)}`}
+                  to={`/blog?category=${encodeURIComponent(rawPost.category)}`}
                   className="rounded-lg border border-[#262626] bg-[#141414] px-3 py-1.5 text-xs text-[#aaa] hover:border-[#ea580c] hover:text-white transition-colors"
                 >
                   #{tag}
@@ -176,8 +180,8 @@ export default function PostDetail() {
         <section className="border-t border-[#1a1a1a] py-20 px-4 sm:px-6 lg:px-8 bg-[#0a0a0a]">
           <div className="mx-auto max-w-7xl">
             <div className="mb-10 text-center">
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white">مقالات ذات صلة</h3>
-              <p className="mt-1 text-xs sm:text-sm text-[#888]">المزيد من المقالات في تصنيف {post.category}</p>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-white">{t("relatedArticlesTitle")}</h3>
+              <p className="mt-1 text-xs sm:text-sm text-[#888]">{t("relatedArticlesDesc", post.category)}</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {relatedPosts.map((rel) => (

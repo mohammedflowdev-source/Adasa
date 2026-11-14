@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
-import { ClockIcon, ArrowLeftIcon } from "./Icons";
+import { ClockIcon, ArrowLeftIcon, ArrowRightIcon } from "./Icons";
+import { useLanguage } from "../context/useLanguage";
 
-export default function ListBlogCard({ post }) {
+export default function ListBlogCard({ post: rawPost }) {
+  const { localizePost, isRTL, t } = useLanguage();
+  const post = localizePost(rawPost);
+
   return (
     <article className="group overflow-hidden rounded-2xl border border-[#222222] bg-[#121212] transition-all duration-300 hover:border-[#383838] hover:shadow-xl hover:shadow-black/50">
       <div className="flex flex-col md:flex-row items-stretch">
@@ -66,8 +70,8 @@ export default function ListBlogCard({ post }) {
               to={`/blog/${post.slug}`}
               className="inline-flex items-center gap-2 text-xs font-medium text-orange-500 hover:text-orange-400"
             >
-              <span>اقرأ المزيد</span>
-              <ArrowLeftIcon className="w-3.5 h-3.5" />
+              <span>{t("readMoreLink")}</span>
+              {isRTL ? <ArrowLeftIcon className="w-3.5 h-3.5" /> : <ArrowRightIcon className="w-3.5 h-3.5" />}
             </Link>
           </div>
         </div>

@@ -14,38 +14,41 @@ import {
   XTwitterIcon,
   MailIcon,
 } from "../Components/Icons";
+import { useLanguage } from "../context/useLanguage";
 import data from "../data.json";
 
 export default function About() {
   const { onOpenContact } = useOutletContext() || {};
+  const { t, localizePost } = useLanguage();
 
   const authorsMap = {};
   data.posts.forEach((p) => {
     if (!authorsMap[p.author.name]) {
-      authorsMap[p.author.name] = p.author;
+      const loc = localizePost(p);
+      authorsMap[p.author.name] = loc.author;
     }
   });
   const authors = Object.values(authorsMap);
 
   const values = [
     {
-      title: "الجودة أولاً",
-      desc: "محتوى مدروس ومكتوب بخبرة",
+      title: t("val1Title"),
+      desc: t("val1Desc"),
       icon: <TargetIcon className="w-8 h-8 text-orange-500" />,
     },
     {
-      title: "تركيز عملي",
-      desc: "أمثلة واقعية يمكنك تطبيقها اليوم",
+      title: t("val2Title"),
+      desc: t("val2Desc"),
       icon: <LightningIcon className="w-8 h-8 text-orange-500" />,
     },
     {
-      title: "المجتمع",
-      desc: "تعلم مع آلاف المصورين",
+      title: t("val3Title"),
+      desc: t("val3Desc"),
       icon: <CommunityIcon className="w-8 h-8 text-orange-500" />,
     },
     {
-      title: "دائماً محدث",
-      desc: "أحدث الاتجاهات وأفضل الممارسات",
+      title: t("val4Title"),
+      desc: t("val4Desc"),
       icon: <RefreshIcon className="w-8 h-8 text-orange-500" />,
     },
   ];
@@ -63,18 +66,18 @@ export default function About() {
               <span className="h-1.5 w-1.5 rounded-full bg-orange-500"></span>
               <span className="h-1.5 w-1.5 rounded-full bg-orange-500"></span>
             </span>
-            <span>من نحن</span>
+            <span>{t("aboutBadge")}</span>
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight max-w-4xl mx-auto">
-            مهمتنا هي{" "}
+            {t("aboutTitlePrefix")}{" "}
             <span className="bg-gradient-to-r from-orange-400 via-amber-500 to-orange-500 bg-clip-text text-transparent">
-              الإعلام والإلهام
+              {t("aboutTitleHighlight")}
             </span>
           </h1>
 
           <p className="mt-6 text-base sm:text-lg text-[#a1a1a1] max-w-3xl mx-auto leading-relaxed">
-            مدونة متخصصة في فن التصوير الفوتوغرافي، نشارك معكم أسرار المحترفين ونصائح عملية لتطوير مهاراتكم. نحن شغوفون بمشاركة المعرفة ومساعدة المصورين على تنمية مهاراتهم من خلال محتوى عالي الجودة.
+            {t("aboutDesc")}
           </p>
 
           <div className="mt-16 grid grid-cols-2 gap-4 sm:grid-cols-4 max-w-4xl mx-auto">
@@ -83,10 +86,10 @@ export default function About() {
                 <UsersIcon className="w-7 h-7" />
               </div>
               <div className="text-2xl sm:text-3xl font-extrabold text-[#f97316]">
-                +2 مليون
+                {t("statMonthlyReadersVal")}
               </div>
               <div className="mt-1 text-xs text-[#808080]">
-                قارئ شهرياً
+                {t("statMonthlyReadersLabel")}
               </div>
             </div>
 
@@ -95,10 +98,10 @@ export default function About() {
                 <ArticleIcon className="w-7 h-7" />
               </div>
               <div className="text-2xl sm:text-3xl font-extrabold text-[#f97316]">
-                +500
+                {t("statPublishedArticlesVal")}
               </div>
               <div className="mt-1 text-xs text-[#808080]">
-                مقالة منشورة
+                {t("statPublishedArticlesLabel")}
               </div>
             </div>
 
@@ -107,10 +110,10 @@ export default function About() {
                 <PenIcon className="w-7 h-7" />
               </div>
               <div className="text-2xl sm:text-3xl font-extrabold text-[#f97316]">
-                +50
+                {t("statExpertWritersVal")}
               </div>
               <div className="mt-1 text-xs text-[#808080]">
-                كاتب خبير
+                {t("statExpertWritersLabel")}
               </div>
             </div>
 
@@ -119,10 +122,10 @@ export default function About() {
                 <CategoryFolderIcon className="w-7 h-7" />
               </div>
               <div className="text-2xl sm:text-3xl font-extrabold text-[#f97316]">
-                +15
+                {t("statTotalCategoriesVal")}
               </div>
               <div className="mt-1 text-xs text-[#808080]">
-                تصنيف
+                {t("statTotalCategoriesLabel")}
               </div>
             </div>
           </div>
@@ -133,11 +136,11 @@ export default function About() {
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-14">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight flex items-center justify-center gap-2">
-              <span>قيمنا</span>
+              <span>{t("valuesTitle")}</span>
               <span className="text-[#ea580c]">|</span>
             </h2>
             <p className="mt-2 text-sm text-[#888]">
-              المبادئ التي توجه كل ما نقوم بإنشائه
+              {t("valuesSubtitle")}
             </p>
           </div>
 
@@ -170,13 +173,13 @@ export default function About() {
                 <span className="h-1.5 w-1.5 rounded-full bg-orange-500"></span>
                 <span className="h-1.5 w-1.5 rounded-full bg-orange-500"></span>
               </span>
-              <span>فريقنا</span>
+              <span>{t("teamBadge")}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              تعرف على كتابنا
+              {t("teamTitle")}
             </h2>
             <p className="mt-2 text-sm text-[#888] max-w-xl mx-auto">
-              فريقنا من المصورين والكتاب ذوي الخبرة شغوفون بمشاركة معرفتهم مع المجتمع
+              {t("teamSubtitle")}
             </p>
           </div>
 
@@ -236,10 +239,10 @@ export default function About() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0a0a0a]">
         <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl bg-gradient-to-r from-[#ea580c] via-[#f97316] to-[#f59e0b] p-10 sm:p-16 text-center text-white shadow-2xl shadow-orange-950/40">
           <h2 className="text-3xl sm:text-5xl font-black tracking-tight">
-            لديك أسئلة؟ دعنا نتحدث!
+            {t("ctaTitle")}
           </h2>
           <p className="mt-4 text-sm sm:text-base text-white/90 max-w-2xl mx-auto leading-relaxed">
-            نحب أن نسمع منك، سواء كان لديك سؤال حول محتوانا، أو تريد المساهمة، أو تريد فقط إلقاء التحية، لا تتردد في التواصل.
+            {t("ctaDesc")}
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
@@ -249,14 +252,14 @@ export default function About() {
               className="inline-flex items-center gap-2 rounded-xl bg-black px-7 py-3.5 text-sm font-bold text-white transition-all hover:bg-neutral-900 active:scale-95 shadow-lg"
             >
               <MailIcon className="w-4 h-4 text-white" />
-              <span>تواصل معنا</span>
+              <span>{t("contactUs")}</span>
             </button>
 
             <Link
               to="/blog"
               className="inline-flex items-center justify-center rounded-xl border border-white/30 bg-white/10 backdrop-blur-md px-7 py-3.5 text-sm font-bold text-white transition-all hover:bg-white/20 active:scale-95"
             >
-              تصفح المقالات
+              {t("browseArticles")}
             </Link>
           </div>
         </div>

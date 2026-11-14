@@ -13,6 +13,15 @@ export function LogoIcon({ className = "w-10 h-10" }) {
   );
 }
 
+export function GlobeIcon({ className = "w-4 h-4" }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10" strokeWidth="1.8" />
+      <path strokeLinecap="round" strokeWidth="1.8" d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+    </svg>
+  );
+}
+
 export function SearchIcon({ className = "w-5 h-5" }) {
   return (
     <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">

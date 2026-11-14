@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { CloseIcon, MailIcon } from "./Icons";
+import { useLanguage } from "../context/useLanguage";
 
 export default function ContactModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ export default function ContactModal({ isOpen, onClose }) {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const { t, isRTL } = useLanguage();
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -47,7 +49,9 @@ export default function ContactModal({ isOpen, onClose }) {
         <button
           type="button"
           onClick={onClose}
-          className="absolute left-4 top-4 p-1.5 rounded-lg text-[#888] hover:bg-[#1f1f1f] hover:text-white transition-colors"
+          className={`absolute top-4 p-1.5 rounded-lg text-[#888] hover:bg-[#1f1f1f] hover:text-white transition-colors ${
+            isRTL ? "left-4" : "right-4"
+          }`}
         >
           <CloseIcon className="w-5 h-5" />
         </button>
@@ -57,8 +61,8 @@ export default function ContactModal({ isOpen, onClose }) {
             <MailIcon className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="text-xl font-bold text-white">تواصل معنا</h3>
-            <p className="text-xs text-[#888]">يسعدنا الاستماع لآرائكم واستفساراتكم</p>
+            <h3 className="text-xl font-bold text-white">{t("contactModalTitle")}</h3>
+            <p className="text-xs text-[#888]">{t("contactModalSubtitle")}</p>
           </div>
         </div>
 
@@ -69,55 +73,55 @@ export default function ContactModal({ isOpen, onClose }) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h4 className="text-lg font-bold text-white">تم إرسال رسالتك بنجاح!</h4>
-            <p className="mt-1 text-xs text-[#888]">سنقوم بالرد عليك في أقرب وقت ممكن.</p>
+            <h4 className="text-lg font-bold text-white">{t("contactSuccessTitle")}</h4>
+            <p className="mt-1 text-xs text-[#888]">{t("contactSuccessDesc")}</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-[#aaa] mb-1.5">الاسم</label>
+              <label className="block text-xs font-medium text-[#aaa] mb-1.5">{t("contactName")}</label>
               <input
                 type="text"
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                placeholder="اسمك الكريم"
+                placeholder={t("contactNamePlaceholder")}
                 className="w-full rounded-xl border border-[#262626] bg-[#181818] px-4 py-2.5 text-sm text-white placeholder-[#555] focus:border-[#ea580c] focus:outline-none transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-[#aaa] mb-1.5">البريد الإلكتروني</label>
+              <label className="block text-xs font-medium text-[#aaa] mb-1.5">{t("contactEmail")}</label>
               <input
                 type="email"
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="your@email.com"
+                placeholder={t("contactEmailPlaceholder")}
                 className="w-full rounded-xl border border-[#262626] bg-[#181818] px-4 py-2.5 text-sm text-white placeholder-[#555] focus:border-[#ea580c] focus:outline-none transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-[#aaa] mb-1.5">الموضوع</label>
+              <label className="block text-xs font-medium text-[#aaa] mb-1.5">{t("contactSubject")}</label>
               <input
                 type="text"
                 required
                 value={formData.subject}
                 onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                placeholder="موضوع الرسالة"
+                placeholder={t("contactSubjectPlaceholder")}
                 className="w-full rounded-xl border border-[#262626] bg-[#181818] px-4 py-2.5 text-sm text-white placeholder-[#555] focus:border-[#ea580c] focus:outline-none transition-colors"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-[#aaa] mb-1.5">الرسالة</label>
+              <label className="block text-xs font-medium text-[#aaa] mb-1.5">{t("contactMessage")}</label>
               <textarea
                 rows="4"
                 required
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                placeholder="اكتب رسالتك هنا..."
+                placeholder={t("contactMessagePlaceholder")}
                 className="w-full rounded-xl border border-[#262626] bg-[#181818] px-4 py-2.5 text-sm text-white placeholder-[#555] focus:border-[#ea580c] focus:outline-none transition-colors resize-none"
               />
             </div>
@@ -126,7 +130,7 @@ export default function ContactModal({ isOpen, onClose }) {
               type="submit"
               className="w-full rounded-xl bg-[#ea580c] py-3 text-sm font-semibold text-white hover:bg-[#c2410c] transition-all active:scale-[0.99] mt-2"
             >
-              إرسال الرسالة
+              {t("contactSubmit")}
             </button>
           </form>
         )}

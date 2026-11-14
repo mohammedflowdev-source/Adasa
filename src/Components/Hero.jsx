@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
-import { ArrowLeftIcon, InfoIcon, ArticleIcon, UsersIcon, CategoryFolderIcon, PenIcon } from "./Icons";
+import { ArrowLeftIcon, ArrowRightIcon, InfoIcon, ArticleIcon, UsersIcon, CategoryFolderIcon, PenIcon } from "./Icons";
+import { useLanguage } from "../context/useLanguage";
 
 export default function Hero() {
+  const { t, isRTL } = useLanguage();
+
   return (
     <section className="relative overflow-hidden pt-20 pb-28 sm:pt-28 sm:pb-36 bg-[#0a0a0a] border-b border-[#1a1a1a]">
       <div className="absolute top-[20%] -left-36 w-[550px] h-[550px] rounded-full ambient-glow-left blur-[100px] pointer-events-none" />
@@ -14,20 +17,20 @@ export default function Hero() {
             <span className="h-1.5 w-1.5 rounded-full bg-orange-500"></span>
             <span className="h-1.5 w-1.5 rounded-full bg-orange-500"></span>
           </span>
-          <span>مرحباً بك في عدسة</span>
+          <span>{t("welcomeBadge")}</span>
         </div>
 
         <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.15] max-w-4xl mx-auto">
-          اكتشف{" "}
+          {t("heroTitlePrefix")}{" "}
           <span className="bg-gradient-to-r from-orange-400 via-amber-500 to-orange-500 bg-clip-text text-transparent">
-            فن
+            {t("heroTitleHighlight")}
           </span>
           <br />
-          التصوير الفوتوغرافي
+          {t("heroTitleSuffix")}
         </h1>
 
         <p className="mt-6 text-base sm:text-lg lg:text-xl text-[#a1a1a1] max-w-2xl mx-auto leading-relaxed">
-          انغمس في أسرار المحترفين ونصائح عملية لتطوير مهاراتك في التصوير.
+          {t("heroSubtitle")}
         </p>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
@@ -35,8 +38,8 @@ export default function Hero() {
             to="/blog"
             className="inline-flex items-center gap-2.5 rounded-full bg-[#ea580c] px-8 py-3.5 text-sm sm:text-base font-bold text-white shadow-lg shadow-orange-950/50 transition-all hover:bg-[#c2410c] hover:scale-105 active:scale-95"
           >
-            <span>استكشف المقالات</span>
-            <ArrowLeftIcon className="w-4 h-4" />
+            <span>{t("exploreArticles")}</span>
+            {isRTL ? <ArrowLeftIcon className="w-4 h-4" /> : <ArrowRightIcon className="w-4 h-4" />}
           </Link>
 
           <Link
@@ -44,7 +47,7 @@ export default function Hero() {
             className="inline-flex items-center gap-2 rounded-full border border-[#2a2a2a] bg-[#141414]/90 px-8 py-3.5 text-sm sm:text-base font-semibold text-[#cfcfcf] transition-all hover:border-[#404040] hover:bg-[#1f1f1f] hover:text-white backdrop-blur-sm"
           >
             <InfoIcon className="w-4 h-4 text-[#888]" />
-            <span>اعرف المزيد</span>
+            <span>{t("learnMore")}</span>
           </Link>
         </div>
 
@@ -54,10 +57,10 @@ export default function Hero() {
               <ArticleIcon className="w-7 h-7" />
             </div>
             <div className="text-2xl sm:text-3xl font-extrabold text-[#f97316]">
-              +50
+              {t("statArticlesVal")}
             </div>
             <div className="mt-1 text-xs text-[#808080]">
-              مقالة
+              {t("statArticles")}
             </div>
           </div>
 
@@ -66,10 +69,10 @@ export default function Hero() {
               <UsersIcon className="w-7 h-7" />
             </div>
             <div className="text-2xl sm:text-3xl font-extrabold text-[#f97316]">
-              +10آلاف
+              {t("statReadersVal")}
             </div>
             <div className="mt-1 text-xs text-[#808080]">
-              قارئ
+              {t("statReaders")}
             </div>
           </div>
 
@@ -78,10 +81,10 @@ export default function Hero() {
               <CategoryFolderIcon className="w-7 h-7" />
             </div>
             <div className="text-2xl sm:text-3xl font-extrabold text-[#f97316]">
-              4
+              {t("statCategoriesVal")}
             </div>
             <div className="mt-1 text-xs text-[#808080]">
-              تصنيفات
+              {t("statCategories")}
             </div>
           </div>
 
@@ -90,10 +93,10 @@ export default function Hero() {
               <PenIcon className="w-7 h-7" />
             </div>
             <div className="text-2xl sm:text-3xl font-extrabold text-[#f97316]">
-              6
+              {t("statWritersVal")}
             </div>
             <div className="mt-1 text-xs text-[#808080]">
-              كاتب
+              {t("statWriters")}
             </div>
           </div>
         </div>
